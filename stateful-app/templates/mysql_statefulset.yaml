@@ -1,0 +1,57 @@
+#headless service
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.statefulset.headlessservice }}
+  labels:
+    app: {{ .Values.statefulset.labels.app}}
+spec:
+  ports:
+  - port: {{.Values.statefulset.serviceport }}
+  clusterIP: None
+  selector:
+    app: {{ .Values.statefulset.labels.app}}
+
+---
+
+#statefulset
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Values.statefulset.name }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.statefulset.labels.app}}
+  serviceName: {{ .Values.statefulset.headlessservice }}
+  replicas: {{ .Values.statefulset.replicaCount }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.statefulset.labels.app}}
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: {{ .Values.statefulset.containername }}
+        image: {{ .Values.statefulset.containerimage}}
+        ports:
+        - containerPort: {{ .Values.statefulset.containerport}}
+        volumeMounts:
+        - name: {{ .Values.statefulset.volumemounts.name }}
+          mountPath: {{ .Values.statefulset.volumemounts.mountpath }}
+        env:
+          - name: MYSQL_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mysql-password
+                key: MYSQL_ROOT_PASSWORD
+  volumeClaimTemplates:
+  - metadata:
+      name: {{ .Values.pvc.name }}
+    spec:
+      accessModes: 
+        - {{ .Values.pv.accessmodes }}
+      storageClassName: {{ .Values.pv.storageclassname}}
+      resources:
+        requests:
+          storage: {{ .Values.pv.capacity}}

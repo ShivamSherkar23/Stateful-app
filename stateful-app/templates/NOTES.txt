@@ -1,0 +1,2 @@
+My sql sample app deployed successfully.
+

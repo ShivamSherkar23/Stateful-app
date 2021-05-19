@@ -1,0 +1,45 @@
+service:
+  name: stateful-app-service
+  type: NodePort
+  ports:
+    port: 5000
+    targetPort: 5000
+
+deployment:
+  containername: stateful-app
+  containerimage: shivamsherkar/stateful-app:latest
+  replicaCount: 1
+  name: stateful-app
+  containerport: 5000
+
+labels:
+  app: stateful-app
+
+pv:
+  pvname1: mysql1
+  pvname2: mysql2
+  storageclassname: "manual"
+  capacity: 5Gi
+  accessmodes: ReadWriteOnce
+  hostpath1: /mysql1
+  hostpath2: /mysql2
+
+database:
+  password: 'password'
+
+statefulset:
+  name: mysql-set
+  labels:
+    app: mysql
+  headlessservice: "mysql-headless"
+  serviceport: 3306
+  replicaCount: 2
+  containername: mysql
+  containerimage: mysql:5.7
+  containerport: 3306
+  volumemounts:
+    name: mysql-store
+    mountpath: /var/lib/mysql
+
+pvc:
+  name: mysql-store

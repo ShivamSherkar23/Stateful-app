@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stateful-app
+  labels:
+    app: stateful-app
+spec:
+  selector:
+    matchLabels:
+      app: stateful-app
+  template:
+    metadata:
+      labels:
+        app: stateful-app
+    spec:
+      containers:
+      - name: stateful-app
+        image: shivamsherkar/stateful-app:latest
+        ports:
+        - containerPort: 5000

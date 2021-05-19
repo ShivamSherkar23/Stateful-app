@@ -1,0 +1,13 @@
+#use to this pod as client to use the mysql server and perform opearations
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mysql-client
+spec:
+  containers:
+  - name: mysql-container
+    image: alpine
+    command: ['sh','-c', "sleep 1800m"]
+    imagePullPolicy: IfNotPresent
+
+# mysql -u root -p -h mysql-set-0.mysql-headless.default.svc.cluster.local
