@@ -3,15 +3,8 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      - apt update && apt-get -y install curl unzip zip
-      - curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-      - unzip awscliv2.zip
-      - ./aws/install
-      - echo logging in to AWS ECR...
-      - aws --version
-      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 236894022199.dkr.ecr.us-east-1.amazonaws.com
-      - python3 -m pip install --upgrade pip
-      - pip3 install -r requirements.txt
+      - echo "prebuild stage"
+      - 
 
   build:
     commands:
