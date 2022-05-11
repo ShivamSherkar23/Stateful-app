@@ -6,13 +6,12 @@ phases:
       - echo logging in to AWS ECR...
       - aws --version
       - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 236894022199.dkr.ecr.us-east-1.amazonaws.com
-      - 
       - python3 -m pip install --upgrade pip
       - pip3 install -r requirements.txt
-     
+
   build:
     commands:
-	  - echo "Building Image ..."
+      - echo "Building Image ..."
       - docker build -t imagepushtest .
       - docker push 236894022199.dkr.ecr.us-east-1.amazonaws.com/imagepushtest:latest
 
