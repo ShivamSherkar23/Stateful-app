@@ -1,7 +1,0 @@
-services:
-  imagepushtest:
-    image: imagepushtest
-    build: ./Dockerfile
-  hello:
-    image: hello
-    build: ./test/Dockerfile
