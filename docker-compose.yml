@@ -5,7 +5,7 @@ services:
     image: hello
     build:
       context: .
-      dockerfile: .test/Dockerfile
+      dockerfile: ./test/Dockerfile
   imagepushtest:
     image: imagepushtest
     build:
