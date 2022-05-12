@@ -7,7 +7,7 @@ phases:
       - echo Logging in to Amazon ECR...
       - aws --version
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
-      - curl -fsSL https://raw.githubusercontent.com/thii/aws-codebuild-extras/1946267/install >> extras.sh && . ./extras.sh
+      - curl -fsSL https://raw.githubusercontent.com/thii/aws-codebuild-extras/master/install >> extras.sh && . ./extras.sh
       - python3 -m pip install --upgrade pip
       - pip3 install -r requirements.txt
       - ECR_REG=236894022199.dkr.ecr.us-east-1.amazonaws.com
