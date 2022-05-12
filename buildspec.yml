@@ -7,16 +7,19 @@ phases:
       - echo Logging in to Amazon ECR...
       - aws --version
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
-      - APP_NAME=236894022199.dkr.ecr.us-east-1.amazonaws.com/hello
-      - REPOSITORY_URI=236894022199.dkr.ecr.us-east-1.amazonaws.com/imagepushtest
+      - python3 -m pip install --upgrade pip
+      - pip3 install -r requirements.txt
+#       - APP_NAME=236894022199.dkr.ecr.us-east-1.amazonaws.com/hello
+#       - REPOSITORY_URI=236894022199.dkr.ecr.us-east-1.amazonaws.com/imagepushtest
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG=build-$(echo $CODEBUILD_BUILD_ID | awk -F":" '{print $2}')
   build:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...
-      - docker build -t $REPOSITORY_URI:latest .
-      - docker build -f ./test/Dockerfile -t $APP_NAME:latest .
+#       - docker build -t $REPOSITORY_URI:latest .
+#       - docker build -f ./test/Dockerfile -t $APP_NAME:latest .
+      - docker-compose up
       - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
   post_build:
     commands:
