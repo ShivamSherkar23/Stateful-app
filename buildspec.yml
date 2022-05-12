@@ -20,7 +20,7 @@ phases:
 #       - docker build -t $REPOSITORY_URI:latest .
 #       - docker build -f ./test/Dockerfile -t $APP_NAME:latest .
       - docker-compose up $CODEBUILD_GIT_MESSAGE
-#       - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
+#       - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG 
   post_build:
     commands:
       - echo Build completed on `date`
