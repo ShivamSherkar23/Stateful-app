@@ -1,0 +1,13 @@
+version: "3.9"
+
+services:
+  hello:
+    image: hello
+    build:
+      context: .
+      dockerfile: .test/Dockerfile
+  imagepushtest:
+    image: imagepushtest
+    build:
+      context: .
+      dockerfile: ./Dockerfile
