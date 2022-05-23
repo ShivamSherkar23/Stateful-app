@@ -8,4 +8,4 @@ spec:
     app: {{ .Values.labels.app }}
   ports:
   - port: {{ .Values.service.ports.port }}
-    targetPort: {{ .Values.service.ports.targetPort }}
+    targetPort: {{  .Values.service.ports.targetPort  }}
